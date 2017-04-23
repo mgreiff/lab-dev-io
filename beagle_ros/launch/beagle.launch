@@ -1,0 +1,14 @@
+<launch>
+  <node
+    name="master"
+    pkg="beagle_ros"
+    type="master.py"
+    output="screen"
+  />
+  <node
+    name="beagleServer"
+    pkg="beagle_ros"
+    type="serverBeagle.py"
+    output="screen"
+  />
+</launch>
