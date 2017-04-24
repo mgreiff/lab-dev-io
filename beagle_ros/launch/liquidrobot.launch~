@@ -1,0 +1,8 @@
+<launch>
+  <node
+    name="master"
+    pkg="beagle_project"
+    type="master.py"
+    output="screen"
+  />
+</launch>
