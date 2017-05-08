@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="y">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The pythonBeagle module &mdash; beagle-project 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="beagle-project 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="PythonBeagle examples" href="examples.html" />
+    <link rel="prev" title="Project summary" href="project.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-pythonBeagle">
+<span id="the-pythonbeagle-module"></span><h1>The pythonBeagle module<a class="headerlink" href="#module-pythonBeagle" title="Permalink to this headline">¶</a></h1>
+<p>This module contains contains all required dependencies to
+run the Python project and serves three purposes. The first
+is to establish communication with the BBB via the TCP/IP
+protocol. The second is to simulate actuators in discrete time
+and the third is to allow actuator and sensory objects to
+manipulate and measure processes in real-time from the BBB.</p>
+<dl class="class">
+<dt id="pythonBeagle.Actuator">
+<em class="property">class </em><code class="descclassname">pythonBeagle.</code><code class="descname">Actuator</code><span class="sig-paren">(</span><em>pins=None</em>, <em>param=None</em>, <em>isSimulating=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.Actuator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actuator class provides an interface required to run
+any actuator, such as a DC or stepper motor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pins</strong> (<em>list</em>) &#8211; A list of pins on which the motor is run</li>
+<li><strong>isSimulating</strong> (<em>bool</em>) &#8211; A flag set to true if the actutator should be simulated</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pythonBeagle.Actuator.discretize_dynamics">
+<code class="descname">discretize_dynamics</code><span class="sig-paren">(</span><em>A</em>, <em>B</em>, <em>G</em>, <em>h</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.Actuator.discretize_dynamics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discretizes a continuous time LTI system dot{x} = Ax + Bu + G using an
+exponential matrix formulation and zero-order hold</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>A</strong> (<em>numpy.array</em>) &#8211; System matrix shape (M,M)</li>
+<li><strong>B</strong> (<em>numpy.array</em>) &#8211; Control matrix shape (M,N)</li>
+<li><strong>G</strong> (<em>numpy.array</em>) &#8211; Constant matrix shape (M,1)</li>
+<li><strong>h</strong> (<em>float</em>) &#8211; Timestep in seconds</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pythonBeagle.DCmotor">
+<em class="property">class </em><code class="descclassname">pythonBeagle.</code><code class="descname">DCmotor</code><span class="sig-paren">(</span><em>pin=None</em>, <em>param=None</em>, <em>isSimulating=True</em>, <em>timestep=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.DCmotor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The DC motor object enables simulation of and real-time interface to a 
+brushless DC motor</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pythonBeagle.ReceiverThread">
+<em class="property">class </em><code class="descclassname">pythonBeagle.</code><code class="descname">ReceiverThread</code><span class="sig-paren">(</span><em>client=None</em>, <em>address=None</em>, <em>protocol='TCP'</em>, <em>size=1024</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.ReceiverThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receiver daemon which receives data on a socket.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>address</strong> (<em>(ip[str], port[int])</em>) &#8211; An adress which needs to be specified in thent of UDP</li>
+<li><strong>client</strong> (<em>socket.socket()</em>) &#8211; An client which needs to be specified in thent of TCP</li>
+<li><strong>protocol</strong> (<em>string</em>) &#8211; A string tag set to TCP or UDP</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pythonBeagle.ReceiverThread.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.ReceiverThread.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data from the receiver, set to None if no data has been received</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>protocol</strong> &#8211; A data valued string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pythonBeagle.ReceiverThread.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.ReceiverThread.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main loop of the thread</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pythonBeagle.ReceiverThread.terminate">
+<code class="descname">terminate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.ReceiverThread.terminate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills the thread instantaneously</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pythonBeagle.SenderThread">
+<em class="property">class </em><code class="descclassname">pythonBeagle.</code><code class="descname">SenderThread</code><span class="sig-paren">(</span><em>client=None</em>, <em>address=None</em>, <em>protocol='TCP'</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.SenderThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sender daemon which publishes data to a socket.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>address</strong> (<em>(ip[str], port[int])</em>) &#8211; An adress which needs to be specified in thent of UDP</li>
+<li><strong>client</strong> (<em>socket.socket()</em>) &#8211; An client which needs to be specified in thent of TCP</li>
+<li><strong>protocol</strong> (<em>string</em>) &#8211; A string tag set to TCP or UDP</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pythonBeagle.SenderThread.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.SenderThread.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main loop of the thread</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pythonBeagle.SenderThread.send_data">
+<code class="descname">send_data</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.SenderThread.send_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send data to the receiver</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>protocol</strong> &#8211; A data valued string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pythonBeagle.SenderThread.terminate">
+<code class="descname">terminate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.SenderThread.terminate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kills the thread instantaneously</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pythonBeagle.ServerThread">
+<em class="property">class </em><code class="descclassname">pythonBeagle.</code><code class="descname">ServerThread</code><span class="sig-paren">(</span><em>clientReceiver</em>, <em>clientSender</em>, <em>size=1024</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.ServerThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a server daemon which handles communication between receiver and
+sender clients implementing TCP/IP.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cientReceiver</strong> (<em>socket.socket()</em>) &#8211; A client which is to receive data</li>
+<li><strong>cientSender</strong> (<em>socket.socket()</em>) &#8211; A client from which data is sent</li>
+<li><strong>size</strong> (<em>int</em>) &#8211; The buffer size</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pythonBeagle.ServerThread.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.ServerThread.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main loop of the thread</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pythonBeagle.encode_array_to_hex">
+<code class="descclassname">pythonBeagle.</code><code class="descname">encode_array_to_hex</code><span class="sig-paren">(</span><em>array</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.encode_array_to_hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data is received as a numpy array with type dfloat64 in the the IEEE 745
+standardand and is encoded to a string with a minimal hexadecimal
+representation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>array</strong> (<em>numpy.array</em>) &#8211; Of shape (N,1) for some integer N&gt;0</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pythonBeagle.encode_hex_to_array">
+<code class="descclassname">pythonBeagle.</code><code class="descname">encode_hex_to_array</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="headerlink" href="#pythonBeagle.encode_hex_to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data is received as N float 64 entries by the 745 standard, coded in
+a minimal hexadecimal representation and converted into a numpy array of
+length (N,1).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> (<em>string</em>) &#8211; A hexadecimal string with no separators</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project.html">Project summary</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The pythonBeagle module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">PythonBeagle examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notes.html">Useful notes on the BBB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="materials.html">Bill of materials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hardware.html">Hardware and electronics</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="project.html" title="previous chapter">Project summary</a></li>
+      <li>Next: <a href="examples.html" title="next chapter">PythonBeagle examples</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pythonBeagle.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Marcus Greiff.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/pythonBeagle.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
