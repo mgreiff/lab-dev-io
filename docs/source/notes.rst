@@ -1,5 +1,5 @@
-Useful notes on the BBB
-=======================
+Useful notes on the BB (Black)
+==============================
 
 To simplify installations and git operation on the BB, an internet connection
 may be established when connecting the a Linux host computer (except for Fedora).

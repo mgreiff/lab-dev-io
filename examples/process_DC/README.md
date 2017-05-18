@@ -1,13 +1,15 @@
-This example simply demonstrates how socketing may be accomplished
-using daemons running in the background. The example is launch by
-opening three terminals and running
+This example demonstrates how a motor could concievably be controlled from the
+host computer, and also shows the limitations of running a socket based UDP approach
+in helping daemons. This is just a quick hack which shows some issues with the current
+implementation, where a locking behaviour is seen. This will have to be fixed ASAP.
 
-python TCPServer.py
-python TCPClientA.py
-python TCPclientB.py
+The example is run by opening two terminals, one on the host and anothort on the host
+or the BBB, then run
 
-in the respective terminals. This starts three threads which
-terminate safely when the program is exited, allowing messages to
-be sent from a main loop in *A to the main loop in *B and vice versa.
-The server thread is required to handle the connection of sockets
-allowing for streaming of data.
+python host_program.py
+
+and
+
+python beagle_program.py
+
+in the two terminals respectively.

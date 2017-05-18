@@ -35,7 +35,7 @@ def pulse_reference(startTime):
         return np.array([[pulseAmplitude]])
 
 ### Main program ###
-loopRate = 30.0                  # [Hz]
+loopRate = 100.0                  # [Hz]
 Nref = 1                         # Number of references
 Nstate = 3                       # Number of states
 references = np.zeros((Nref,1))  # References sent to the DC motor open loop
@@ -45,6 +45,7 @@ execTime = np.array([])          # Execution times
 startTime = tt.time()            # Time at which the main loop starts
 
 continueMainLoop = True          # Flag to interrup main loop and plot
+numberOfLooptimingsMissed = 0
 while continueMainLoop:
     try:
         startLoopTime = tt.time()
@@ -70,8 +71,8 @@ while continueMainLoop:
         execTime = np.concatenate((execTime, np.array([executionTime])))
 
         if executionTime > 1.0/loopRate:
-            #continueMainLoop = False
-            print "The main loop deadline was not met, exiting"
+             #continueMainLoop = False
+             numberOfLooptimingsMissed += 1
         else:
             tt.sleep(1.0/loopRate - executionTime)
     except KeyboardInterrupt:

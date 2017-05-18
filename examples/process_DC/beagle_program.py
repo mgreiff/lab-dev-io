@@ -20,7 +20,7 @@ receiver = ReceiverThread(address=receiverAddress, protocol="UDP", size=16) # 16
 receiver.start()
 
 ### Main program ###
-loopRate = 30.0                  # [Hz]
+loopRate = 100.0                 # [Hz]
 h = 1.0/loopRate                 # [s]
 Nref = 1                         # Number of references
 Nstate = 3                       # Number of states
@@ -47,6 +47,7 @@ motor = DCmotor(param=parameters, timestep=h)
 print "Starint main loop, press ^C to terminate and plot data"
 continueMainLoop = True          # Flag to interrup main loop and plot
 executionTime = 0.0
+numberOfLooptimingsMissed = 0
 while continueMainLoop:
     try:
         startLoopTime = tt.time()
@@ -72,7 +73,8 @@ while continueMainLoop:
         execTime = np.concatenate((execTime, np.array([executionTime])))
 
         if executionTime > 1.0/loopRate:
-            print "Warning. The main loop deadline was not met at exec={}".format(executionTime)
+            #print "Warning. The main loop deadline was not met at exec={}".format(executionTime)
+            numberOfLooptimingsMissed += 1
         else:
             tt.sleep(1.0/loopRate - executionTime)
     except KeyboardInterrupt:

@@ -10,9 +10,10 @@ moddir = os.path.join(pardir, "modules")
 sys.path.insert(0,moddir) 
 from pythonBeagle import DCmotor
 
-loopRate = 30.0    # [Hz]
+loopRate = 100.0    # [Hz]
 h = 1.0/loopRate
 x0 = np.zeros((3,1))
+
 parameters = {
     "x0": x0,
     "J": 0.13,
@@ -22,15 +23,15 @@ parameters = {
     "R": 2.3,
     "L": 0.1,
 }
+
 motor = DCmotor(param=parameters, timestep=h)
 
 # Simulate a unit step
-N = 50
+N = 200
 t = np.zeros((1,N))
 u = np.zeros((1,N))
 x = np.zeros((3,N))
 for ii in range(0,N):
-    print [ii, ii * h]
     voltage = np.array([[1.0]])
     u[0,ii] = voltage[0,0]
     t[0,ii] = ii * h
@@ -42,3 +43,4 @@ for ii in range(0,N):
 plt.plot(t[0,:],x[0,:])
 plt.plot(t[0,:],x[1,:])
 plt.plot(t[0,:],1e3*x[2,:])
+plt.show()
